@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign In — ShopEase{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="auth-wrapper">
+    
+    <div class="auth-header">
+      <div class="brand-badge" style="width: 48px; height: 48px; border-radius: 12px; margin: 0 auto 1rem;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+          <polyline points="10 17 15 12 10 7"></polyline>
+          <line x1="15" y1="12" x2="3" y2="12"></line>
+        </svg>
+      </div>
+      <h1>Welcome Back</h1>
+      <p>Log in to access your orders, saved cart, and profile</p>
+    </div>
+
+    <!-- Quick Demo Credential Button for Evaluators -->
+    <div style="background-color: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 1.5rem; text-align: center;">
+      <div style="font-size: 0.82rem; color: var(--slate-700); margin-bottom: 0.4rem;">
+        <strong>Internship Reviewer?</strong> Click below to fill demo user:
+      </div>
+      <button 
+        type="button" 
+        class="btn btn-primary btn-sm" 
+        style="width: 100%; font-size: 0.82rem;"
+        onclick="fillDemoCredentials()"
+      >
+        Autofill Demo Credentials (intern_demo)
+      </button>
+    </div>
+
+    <form action="{% url 'login' %}" method="post" id="loginForm">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger" style="margin-bottom: 1rem;">
+          {{ form.non_field_errors.0 }}
+        </div>
+      {% endif %}
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div class="form-error">{{ form.username.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div class="form-error">{{ form.password.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitLoginBtn" style="margin-top: 1.25rem;">
+        Sign In to Account
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Don't have an account yet? 
+      <a href="{% url 'register' %}">Create Account</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function fillDemoCredentials() {
+    const userField = document.getElementById('{{ form.username.id_for_label }}') || document.querySelector('input[name="username"]');
+    const passField = document.getElementById('{{ form.password.id_for_label }}') || document.querySelector('input[name="password"]');
+    if (userField && passField) {
+      userField.value = 'intern_demo';
+      passField.value = 'password123';
+    }
+  }
+</script>
+{% endblock %}

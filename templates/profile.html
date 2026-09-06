@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile — ShopEase{% endblock %}
+
+{% block content %}
+<div class="container">
+  
+  <div style="padding-top: 2rem; margin-bottom: 1.5rem;">
+    <h1 style="font-size: 2.2rem; font-weight: 800;">My Account & Profile</h1>
+    <p style="color: var(--slate-600);">Manage your personal contact details and saved delivery address</p>
+  </div>
+
+  <div class="profile-layout">
+    
+    <!-- Left Column: User Summary Card -->
+    <div>
+      <div class="profile-card">
+        <div class="profile-avatar-lg">
+          {{ user.first_name|default:user.username|slice:":1"|upper }}
+        </div>
+        <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.25rem;">
+          {{ user.get_full_name|default:user.username }}
+        </h2>
+        <div style="color: var(--slate-500); font-size: 0.88rem; margin-bottom: 1.25rem;">
+          {{ user.email }}
+        </div>
+
+        <div style="border-top: 1px solid var(--slate-100); padding-top: 1rem; text-align: left; font-size: 0.85rem; color: var(--slate-600);">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span>Username:</span>
+            <strong>{{ user.username }}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span>Joined:</span>
+            <strong>{{ user.date_joined|date:"M d, Y" }}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Total Orders:</span>
+            <strong>{{ user.orders.count }}</strong>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="{% url 'orders' %}" class="btn btn-secondary btn-block btn-sm">
+            View Order History
+          </a>
+          {% if user.is_staff %}
+            <a href="/admin/" target="_blank" class="btn btn-outline btn-block btn-sm">
+              Django Admin Panel
+            </a>
+          {% endif %}
+          <a href="{% url 'logout' %}" class="btn btn-secondary btn-block btn-sm" style="color: var(--danger);">
+            Log Out
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Profile Form & Recent Orders -->
+    <div>
+      
+      <!-- Profile Edit Form -->
+      <div class="checkout-form-card" style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">
+          Update Account Information
+        </h3>
+
+        <form action="{% url 'profile' %}" method="post">
+          {% csrf_token %}
+
+          <!-- Personal Information Section -->
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-700); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.04em;">
+              Personal Details
+            </h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="{{ user_form.first_name.id_for_label }}">First Name</label>
+                {{ user_form.first_name }}
+                {% if user_form.first_name.errors %}
+                  <div class="form-error">{{ user_form.first_name.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="{{ user_form.last_name.id_for_label }}">Last Name</label>
+                {{ user_form.last_name }}
+                {% if user_form.last_name.errors %}
+                  <div class="form-error">{{ user_form.last_name.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="form-group form-full">
+                <label class="form-label" for="{{ user_form.email.id_for_label }}">Email Address *</label>
+                {{ user_form.email }}
+                {% if user_form.email.errors %}
+                  <div class="form-error">{{ user_form.email.errors.0 }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Saved Shipping Address Section -->
+          <div style="border-top: 1px solid var(--slate-200); padding-top: 1.5rem; margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-700); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.04em;">
+              Default Delivery Address
+            </h4>
+            <div class="form-grid">
+              <div class="form-group form-full">
+                <label class="form-label" for="{{ profile_form.phone.id_for_label }}">Phone Number</label>
+                {{ profile_form.phone }}
+                {% if profile_form.phone.errors %}
+                  <div class="form-error">{{ profile_form.phone.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="form-group form-full">
+                <label class="form-label" for="{{ profile_form.address.id_for_label }}">Street Address / Suite</label>
+                {{ profile_form.address }}
+                {% if profile_form.address.errors %}
+                  <div class="form-error">{{ profile_form.address.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="{{ profile_form.city.id_for_label }}">City</label>
+                {{ profile_form.city }}
+                {% if profile_form.city.errors %}
+                  <div class="form-error">{{ profile_form.city.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="{{ profile_form.postal_code.id_for_label }}">Postal / ZIP Code</label>
+                {{ profile_form.postal_code }}
+                {% if profile_form.postal_code.errors %}
+                  <div class="form-error">{{ profile_form.postal_code.errors.0 }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+              Save Profile Changes
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Recent Orders Quick Preview -->
+      {% if recent_orders %}
+        <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--slate-900);">Recent Orders</h3>
+            <a href="{% url 'orders' %}" style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">View All Orders &rarr;</a>
+          </div>
+
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ord in recent_orders %}
+                <tr>
+                  <td>
+                    <a href="{% url 'order_detail' ord.order_number %}" style="font-weight: 700; color: var(--primary);">
+                      {{ ord.order_number }}
+                    </a>
+                  </td>
+                  <td style="font-size: 0.88rem; color: var(--slate-600);">
+                    {{ ord.created_at|date:"M d, Y" }}
+                  </td>
+                  <td style="font-weight: 700;">
+                    ${{ ord.total|floatformat:2 }}
+                  </td>
+                  <td>
+                    {% if ord.order_status == 'confirmed' %}
+                      <span class="badge badge-info">Confirmed</span>
+                    {% elif ord.order_status == 'shipped' %}
+                      <span class="badge badge-secondary">Shipped</span>
+                    {% elif ord.order_status == 'delivered' %}
+                      <span class="badge badge-success">Delivered</span>
+                    {% else %}
+                      <span class="badge badge-warning">{{ ord.get_order_status_display }}</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+# ShopEase Python & Django Core Dependencies (Installed)
+Django>=3.2.25,<4.0.0
+Pillow>=10.0.0
+python-dotenv>=1.0.0
+asgiref>=3.6.0
+sqlparse>=0.4.2
+
+# Optional Production Dependencies (Only needed when connecting to PostgreSQL):
+# dj-database-url>=2.1.0
+# psycopg2-binary>=2.9.0

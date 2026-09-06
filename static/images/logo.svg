@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+        <rect width="40" height="40" y="4" rx="10" fill="#2563EB"/>
+        <path d="M16 16L24 24L16 32" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="24" r="4" fill="#60A5FA"/>
+        <text x="52" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="800" fill="#0F172A" letter-spacing="-0.5">Shop<tspan fill="#2563EB">Ease</tspan></text>
+    </svg>

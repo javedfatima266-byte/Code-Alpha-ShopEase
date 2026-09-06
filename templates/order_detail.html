@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order #{{ order.order_number }} — ShopEase{% endblock %}
+
+{% block content %}
+<div class="container">
+  
+  <!-- Breadcrumbs -->
+  <div style="padding-top: 1.5rem; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--slate-500);">
+    <a href="{% url 'home' %}">Home</a> / 
+    <a href="{% url 'orders' %}">My Orders</a> / 
+    <span style="color: var(--slate-900); font-weight: 600;">#{{ order.order_number }}</span>
+  </div>
+
+  <!-- Order Header -->
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--slate-200);">
+    <div>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <h1 style="font-size: 2.1rem; font-weight: 800;">Order #{{ order.order_number }}</h1>
+        <span class="badge {{ order.get_status_badge_class }}">{{ order.get_order_status_display }}</span>
+      </div>
+      <p style="color: var(--slate-500); margin-top: 0.25rem;">
+        Placed on <strong>{{ order.created_at|date:"F d, Y" }}</strong> at {{ order.created_at|date:"h:i A" }}
+      </p>
+    </div>
+
+    <div style="display: flex; gap: 0.75rem;">
+      {% if is_cancellable %}
+        <form action="{% url 'cancel_order' order.order_number %}" method="post" onsubmit="return confirm('Are you sure you want to cancel this order? Allocated stock will be restored.')">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-secondary btn-sm" style="color: var(--danger); border-color: var(--danger-border);">
+            Cancel Order
+          </button>
+        </form>
+      {% endif %}
+
+      <button onclick="window.print()" class="btn btn-secondary btn-sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Print Receipt
+      </button>
+    </div>
+  </div>
+
+  <div class="cart-layout">
+    
+    <!-- Left Column: Order Items & Delivery Info -->
+    <div>
+      
+      <!-- Items Card -->
+      <div class="cart-table-card" style="margin-bottom: 2rem;">
+        <div style="padding: 1.25rem; border-bottom: 1px solid var(--slate-200); background-color: var(--slate-50); font-weight: 700; color: var(--slate-900);">
+          Purchased Items
+        </div>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+              <th style="text-align: center;">Quantity</th>
+              <th style="text-align: right;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in order_items %}
+              <tr>
+                <td>
+                  <div class="cart-product-cell">
+                    <img 
+                      src="{% if item.product and item.product.image %}{{ item.product.image.url }}{% elif item.product and item.product.image_url %}{{ item.product.image_url }}{% else %}{% static 'images/placeholder.svg' %}{% endif %}" 
+                      alt="{{ item.product_name }}" 
+                      class="cart-item-thumb"
+                    >
+                    <div>
+                      {% if item.product %}
+                        <a href="{% url 'product_detail' item.product.slug %}" style="font-weight: 700; color: var(--slate-900);">
+                          {{ item.product_name }}
+                        </a>
+                      {% else %}
+                        <span style="font-weight: 700; color: var(--slate-900);">{{ item.product_name }}</span>
+                      {% endif %}
+                      <div style="font-size: 0.78rem; color: var(--slate-500);">Captured unit price snapshot</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="font-weight: 600;">
+                  ${{ item.price|floatformat:2 }}
+                </td>
+                <td style="text-align: center; font-weight: 600;">
+                  {{ item.quantity }}
+                </td>
+                <td style="text-align: right; font-weight: 800; color: var(--slate-900);">
+                  ${{ item.subtotal|floatformat:2 }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Shipping & Customer Details Card -->
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 1.5rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 1rem; color: var(--slate-900);">
+          Shipping & Contact Information
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--slate-400); font-weight: 700; margin-bottom: 0.25rem;">
+              Recipient
+            </div>
+            <div style="font-weight: 700; color: var(--slate-900);">{{ order.full_name }}</div>
+            <div style="color: var(--slate-600); font-size: 0.9rem;">Email: {{ order.email }}</div>
+            <div style="color: var(--slate-600); font-size: 0.9rem;">Phone: {{ order.phone }}</div>
+          </div>
+
+          <div>
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--slate-400); font-weight: 700; margin-bottom: 0.25rem;">
+              Delivery Address
+            </div>
+            <div style="color: var(--slate-800); font-weight: 600;">{{ order.address }}</div>
+            <div style="color: var(--slate-600); font-size: 0.9rem;">{{ order.city }}, {{ order.postal_code }}</div>
+            <div style="margin-top: 0.5rem; font-size: 0.82rem; color: var(--slate-500);">Payment: {{ order.get_payment_method_display }}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Financial Breakdown & Progress -->
+    <aside class="cart-summary-card">
+      <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem;">Financial Breakdown</h3>
+
+      <div class="summary-row">
+        <span>Items Subtotal</span>
+        <strong>${{ order.subtotal|floatformat:2 }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery Fee</span>
+        {% if order.shipping_cost == 0 %}
+          <span style="color: var(--success); font-weight: 700;">FREE</span>
+        {% else %}
+          <span>${{ order.shipping_cost|floatformat:2 }}</span>
+        {% endif %}
+      </div>
+
+      <div class="summary-row summary-total">
+        <span>Total Payable</span>
+        <span style="color: var(--primary);">${{ order.total|floatformat:2 }}</span>
+      </div>
+
+      <!-- Payment Status Note -->
+      <div style="margin-top: 1.5rem; padding: 1rem; background-color: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-sm);">
+        <div style="font-weight: 700; color: var(--slate-900); font-size: 0.88rem; margin-bottom: 0.35rem;">
+          Payment Method: Cash on Delivery
+        </div>
+        <p style="font-size: 0.82rem; color: var(--slate-600); margin: 0;">
+          Please prepare exact cash amount of <strong>${{ order.total|floatformat:2 }}</strong> when receiving the order from the courier.
+        </p>
+      </div>
+
+      <!-- Order Status Lifecycle -->
+      <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--slate-200);">
+        <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;">Fulfillment Progress</h4>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--success); font-weight: 600;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Order Placed
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; {% if order.order_status in 'confirmed,processing,shipped,delivered' %}color: var(--success); font-weight: 600;{% else %}color: var(--slate-400);{% endif %}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Order Confirmed
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; {% if order.order_status in 'processing,shipped,delivered' %}color: var(--success); font-weight: 600;{% else %}color: var(--slate-400);{% endif %}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Dispatched & In Transit
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; {% if order.order_status == 'delivered' %}color: var(--success); font-weight: 600;{% else %}color: var(--slate-400);{% endif %}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Delivered to Doorstep
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+{% endblock %}

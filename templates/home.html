@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ShopEase — Modern Online Shopping Store{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        Premium Internship Showcase 2026
+      </div>
+      <h1 class="hero-title">Curated Everyday Essentials & <span>Precision Gear</span></h1>
+      <p class="hero-desc">
+        Experience a refined shopping journey. Browse curated electronics, apparel, homeware, and wellness items backed by real-time inventory and dependable delivery.
+      </p>
+      <div class="hero-buttons">
+        <a href="{% url 'products' %}" class="btn btn-primary btn-lg" id="heroShopBtn">
+          Browse All Products
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#categories" class="btn btn-secondary btn-lg">
+          Explore Categories
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero Spotlight Card -->
+    <div>
+      <div class="hero-card">
+        <div class="badge-discount" style="top: 24px; left: 24px;">FEATURED PICK</div>
+        <img src="{% static 'images/products/headphones.svg' %}" alt="AeroSound Pro Wireless Headphones" class="hero-card-img">
+        <div class="hero-card-info">
+          <div>
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary); font-weight: 700;">Electronics</div>
+            <div class="hero-card-title">AeroSound Pro Wireless</div>
+            <div style="display: flex; align-items: center; gap: 4px; font-size: 0.85rem; color: var(--slate-500); margin-top: 2px;">
+              <span class="star-icon">★</span> 4.85 (64 reviews)
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div class="hero-card-price">$149.99</div>
+            <span style="font-size: 0.82rem; color: var(--slate-400); text-decoration: line-through;">$189.99</span>
+          </div>
+        </div>
+        <div style="margin-top: 1.25rem;">
+          <a href="{% url 'product_detail' 'aerosound-pro-wireless-headphones' %}" class="btn btn-primary btn-block">
+            View Details & Buy
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust / Value Proposition Section -->
+<section class="section" style="padding: 2.5rem 0; border-bottom: 1px solid var(--slate-200); background-color: var(--white);">
+  <div class="container">
+    <div class="features-grid">
+      
+      <div class="feature-box">
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+        </div>
+        <div>
+          <h4 class="feature-title">Free Standard Shipping</h4>
+          <p class="feature-desc">Enjoy free delivery on all customer orders totaling $75 or more.</p>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+        </div>
+        <div>
+          <h4 class="feature-title">Cash on Delivery (COD)</h4>
+          <p class="feature-desc">Pay upon receiving your items with zero pre-payment stress.</p>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div>
+          <h4 class="feature-title">Verified Inventory</h4>
+          <p class="feature-desc">Accurate database stock control prevents out-of-stock disappointments.</p>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 14 14"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h4 class="feature-title">Real-Time Order Status</h4>
+          <p class="feature-desc">Track confirmed, shipped, and delivered packages anytime in your portal.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Shop By Category Section -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Browse curated products across our primary departments</p>
+      </div>
+      <a href="{% url 'products' %}" class="view-all-link">
+        All Categories
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <div class="category-grid">
+      {% for cat in categories %}
+        <a href="{% url 'products_by_category' cat.slug %}" class="category-card" id="cat-card-{{ cat.slug }}">
+          <div class="category-icon-box">
+            {% if cat.slug == 'electronics' %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+            {% elif cat.slug == 'fashion' %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+            {% elif cat.slug == 'home-living' %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            {% elif cat.slug == 'accessories' %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><polyline points="12 9 12 12 13.5 13.5"/><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"/></svg>
+            {% else %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            {% endif %}
+          </div>
+          <div class="category-name">{{ cat.name }}</div>
+          <div class="category-count">{{ cat.products.count }} items</div>
+        </a>
+      {% empty %}
+        <p>No categories found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Featured Highlights</h2>
+        <p class="section-subtitle">Top customer-rated equipment, home decor, and daily wear</p>
+      </div>
+      <a href="{% url 'products' %}" class="view-all-link">
+        View All Catalog
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <div class="product-grid">
+      {% for product in featured_products %}
+        <div class="product-card" id="product-card-{{ product.id }}">
+          
+          <div class="product-img-wrap">
+            {% if product.discount_price %}
+              <div class="badge-discount">SALE -${{ product.price|floatformat:2|add:"-"|add:product.discount_price|floatformat:2 }}</div>
+            {% endif %}
+            
+            {% if not product.is_in_stock %}
+              <div class="badge-stock badge-out-of-stock">Out of Stock</div>
+            {% elif product.is_low_stock %}
+              <div class="badge-stock" style="background-color: var(--warning); color: #000;">Only {{ product.stock_quantity }} Left</div>
+            {% endif %}
+
+            <a href="{% url 'product_detail' product.slug %}">
+              <img 
+                src="{% if product.image %}{{ product.image.url }}{% elif product.image_url %}{{ product.image_url }}{% else %}{% static 'images/placeholder.svg' %}{% endif %}" 
+                alt="{{ product.name }}" 
+                class="product-img"
+                loading="lazy"
+              >
+            </a>
+          </div>
+
+          <div class="product-body">
+            <div class="product-category">{{ product.category.name }}</div>
+            <h3 class="product-title">
+              <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+            </h3>
+
+            <div class="product-rating">
+              <span class="star-icon">★</span>
+              <span style="font-weight: 700; color: var(--slate-800);">{{ product.rating|floatformat:1 }}</span>
+              <span>({{ product.review_count }})</span>
+            </div>
+
+            <div class="product-price-row">
+              <span class="current-price">${{ product.get_effective_price|floatformat:2 }}</span>
+              {% if product.discount_price %}
+                <span class="old-price">${{ product.price|floatformat:2 }}</span>
+              {% endif %}
+            </div>
+
+            <div class="product-actions">
+              <a href="{% url 'product_detail' product.slug %}" class="btn btn-secondary btn-sm" style="flex: 1;">
+                View
+              </a>
+
+              {% if product.is_in_stock %}
+                <form action="{% url 'add_to_cart' product.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="btn btn-primary btn-sm" title="Add to Shopping Cart" aria-label="Add {{ product.name }} to cart">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </button>
+                </form>
+              {% else %}
+                <button type="button" class="btn btn-secondary btn-sm" disabled style="opacity: 0.5;">
+                  Unavailable
+                </button>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      {% empty %}
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <p>No featured products found.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Latest Arrivals Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">New Arrivals</h2>
+        <p class="section-subtitle">Recently added inventory ready for immediate dispatch</p>
+      </div>
+      <a href="{% url 'products' %}" class="view-all-link">
+        Explore Catalog
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <div class="product-grid">
+      {% for product in latest_products|slice:":8" %}
+        <div class="product-card">
+          <div class="product-img-wrap">
+            {% if product.discount_price %}
+              <div class="badge-discount">SAVE ${{ product.price|floatformat:2|add:"-"|add:product.discount_price|floatformat:2 }}</div>
+            {% endif %}
+
+            {% if not product.is_in_stock %}
+              <div class="badge-stock badge-out-of-stock">Sold Out</div>
+            {% endif %}
+
+            <a href="{% url 'product_detail' product.slug %}">
+              <img 
+                src="{% if product.image %}{{ product.image.url }}{% elif product.image_url %}{{ product.image_url }}{% else %}{% static 'images/placeholder.svg' %}{% endif %}" 
+                alt="{{ product.name }}" 
+                class="product-img"
+                loading="lazy"
+              >
+            </a>
+          </div>
+
+          <div class="product-body">
+            <div class="product-category">{{ product.category.name }}</div>
+            <h3 class="product-title">
+              <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+            </h3>
+
+            <div class="product-price-row">
+              <span class="current-price">${{ product.get_effective_price|floatformat:2 }}</span>
+              {% if product.discount_price %}
+                <span class="old-price">${{ product.price|floatformat:2 }}</span>
+              {% endif %}
+            </div>
+
+            <div class="product-actions">
+              <a href="{% url 'product_detail' product.slug %}" class="btn btn-secondary btn-sm" style="flex: 1;">
+                View
+              </a>
+              {% if product.is_in_stock %}
+                <form action="{% url 'add_to_cart' product.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="btn btn-primary btn-sm" title="Add to Cart" aria-label="Add to cart">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Internship Demo Callout Banner -->
+<section class="section" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: var(--white); padding: 3.5rem 0;">
+  <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+    <div style="max-width: 680px;">
+      <span style="background-color: var(--primary); color: var(--white); font-size: 0.78rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: var(--radius-full); text-transform: uppercase;">
+        Full-Stack Project Evaluation
+      </span>
+      <h2 style="color: var(--white); font-size: 2.2rem; margin-top: 0.75rem; margin-bottom: 0.75rem;">
+        Complete Backend Architecture with Real Business Logic
+      </h2>
+      <p style="color: var(--slate-300); font-size: 1.05rem;">
+        Test the entire lifecycle: browse products, apply multi-criteria filters, add items to cart as guest or user, place Cash on Delivery orders with atomic database locks, and inspect your order history.
+      </p>
+    </div>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="{% url 'products' %}" class="btn btn-primary btn-lg">
+        Start Shopping Now
+      </a>
+      <a href="{% url 'login' %}" class="btn btn-secondary btn-lg" style="background-color: transparent; color: var(--white); border-color: var(--slate-600);">
+        Demo Login
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

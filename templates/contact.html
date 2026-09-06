@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact & Support — ShopEase{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; padding-top: 2.5rem; padding-bottom: 4rem;">
+  
+  <div style="text-align: center; margin-bottom: 2.5rem;">
+    <h1 style="font-size: 2.3rem; font-weight: 800; margin-bottom: 0.5rem;">Contact Customer Support</h1>
+    <p style="font-size: 1.05rem; color: var(--slate-600);">
+      Have an inquiry regarding orders, shipping, or catalog items? We're here to assist.
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1.25fr; gap: 2rem;">
+    
+    <!-- Contact Info Cards -->
+    <div>
+      <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 1.75rem; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">Support Channels</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+            <div style="width: 38px; height: 38px; background-color: var(--primary-light); color: var(--primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem;">Email Inquiries</div>
+              <div style="color: var(--slate-500); font-size: 0.85rem;">support@shopease.local</div>
+              <div style="color: var(--slate-400); font-size: 0.78rem;">Response within 24 hours</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+            <div style="width: 38px; height: 38px; background-color: var(--primary-light); color: var(--primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem;">Telephone Line</div>
+              <div style="color: var(--slate-500); font-size: 0.85rem;">+1 (800) 555-EASE</div>
+              <div style="color: var(--slate-400); font-size: 0.78rem;">Mon–Fri 9:00 AM – 6:00 PM EST</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+            <div style="width: 38px; height: 38px; background-color: var(--primary-light); color: var(--primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem;">Payment Assistance</div>
+              <div style="color: var(--slate-500); font-size: 0.85rem;">Cash on Delivery Dispatch</div>
+              <div style="color: var(--slate-400); font-size: 0.78rem;">Zero upfront fees</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form Card -->
+    <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 2rem;">
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Send a Message</h3>
+      
+      <form action="#" method="post" onsubmit="event.preventDefault(); alert('Thank you for reaching out! In this internship demo environment, support messages are acknowledged instantly.'); this.reset();">
+        <div class="form-group">
+          <label class="form-label" for="contact_name">Your Name</label>
+          <input type="text" id="contact_name" class="form-input" placeholder="e.g. Jane Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact_email">Email Address</label>
+          <input type="email" id="contact_email" class="form-input" placeholder="e.g. jane@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact_subject">Subject</label>
+          <input type="text" id="contact_subject" class="form-input" placeholder="e.g. Question about order delivery" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact_message">Message</label>
+          <textarea id="contact_message" class="form-textarea" rows="4" placeholder="How can our customer team help you today?" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Send Support Inquiry
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

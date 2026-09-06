@@ -1,0 +1,6 @@
+{
+  "name": "ShopEase",
+  "description": "A complete, professional full-stack e-commerce store with product browsing, search, filtering, shopping cart, user authentication, profile management, and order processing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

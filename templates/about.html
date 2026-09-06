@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About ShopEase — Full-Stack Internship Showcase{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; padding-top: 2.5rem; padding-bottom: 4rem;">
+  
+  <div style="text-align: center; margin-bottom: 3rem;">
+    <div class="brand-badge" style="width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 1.25rem;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+    </div>
+    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.75rem;">About ShopEase</h1>
+    <p style="font-size: 1.15rem; color: var(--slate-600); max-width: 620px; margin: 0 auto;">
+      A fully functional, end-to-end e-commerce web platform engineered for real-world reliability and internship evaluation.
+    </p>
+  </div>
+
+  <div style="background-color: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 2rem; box-shadow: var(--shadow-sm);">
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Project Overview & Objective</h2>
+    <p style="margin-bottom: 1.25rem; line-height: 1.7;">
+      ShopEase was architected to fulfill the rigorous requirements of a production-style internship project. Rather than a static prototype with mock buttons, every feature connects directly to a relational database backed by atomic transaction safety and strict input validation.
+    </p>
+
+    <h3 style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">Key Architecture Highlights</h3>
+    <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; color: var(--slate-700); line-height: 1.6;">
+      <li>
+        <strong>Session & Authenticated Hybrid Cart:</strong> Anonymous guests can freely browse and add products to a session-backed cart. Upon logging in or registering, all guest items are seamlessly migrated to the user's permanent database profile.
+      </li>
+      <li>
+        <strong>Atomic Checkout & Concurrency Locking:</strong> Checkouts use Django's <code>transaction.atomic()</code> combined with row-level locks (<code>select_for_update</code>) to prevent inventory over-selling or race conditions.
+      </li>
+      <li>
+        <strong>Order Snapshots:</strong> Product prices at the exact moment of order placement are recorded into immutable <code>OrderItem</code> rows, guaranteeing historical integrity even if future catalog prices change.
+      </li>
+      <li>
+        <strong>Defensive Security:</strong> Full CSRF protection across all state-mutating requests, authorization checks preventing cross-user order snooping, password hashing using PBKDF2 with SHA-256, and sanitization.
+      </li>
+      <li>
+        <strong>Pure Native Styling:</strong> Clean, responsive CSS Grid and Flexbox with CSS custom properties, responsive breakpoints for mobile, tablet, and desktop without external bloated frameworks.
+      </li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.75rem;">Technology Stack</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+      <div style="padding: 1rem; background-color: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); text-align: center;">
+        <div style="font-weight: 700; color: var(--slate-900);">Django 6.0</div>
+        <div style="font-size: 0.8rem; color: var(--slate-500);">Backend & ORM</div>
+      </div>
+      <div style="padding: 1rem; background-color: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); text-align: center;">
+        <div style="font-weight: 700; color: var(--slate-900);">Python 3.12</div>
+        <div style="font-size: 0.8rem; color: var(--slate-500);">Runtime Environment</div>
+      </div>
+      <div style="padding: 1rem; background-color: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); text-align: center;">
+        <div style="font-weight: 700; color: var(--slate-900);">SQLite</div>
+        <div style="font-size: 0.8rem; color: var(--slate-500);">Relational Database</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center;">
+    <a href="{% url 'products' %}" class="btn btn-primary btn-lg">
+      Explore the Live Store
+    </a>
+  </div>
+
+</div>
+{% endblock %}
