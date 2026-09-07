@@ -6,7 +6,7 @@
   "scripts": {
   "dev": "node dev-server.js",
   "start": "node dev-server.js",
-  "build": "python manage.py check && python manage.py collectstatic --noinput",
+  "build": "uv run python manage.py check && uv run python manage.py collectstatic --noinput"
   "test": "uv run python manage.py test",
   "lint": "uv run python manage.py check"
 },
