@@ -21,9 +21,13 @@ except Exception:
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 SECRET_KEY = os.environ.get(
-    'SECRET_KEY',
-    'django-insecure-shopease-internship-fullstack-key-2026-secure-token'
+    'DJANGO_SECRET_KEY',
+    os.environ.get(
+        'SECRET_KEY',
+        'django-insecure-shopease-internship-fullstack-key-2026-secure-token'
+    )
 )
+   
 
 DEBUG = os.environ.get('DEBUG', 'True').strip().lower() in ('true', '1', 'yes')
 
