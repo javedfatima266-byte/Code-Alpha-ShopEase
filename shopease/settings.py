@@ -47,68 +47,30 @@ else:
 ng_allowed = os.environ.get('NG_ALLOWED_HOSTS', '').strip()
 if ng_allowed and ng_allowed not in ALLOWED_HOSTS and '*' not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(ng_allowed)
-
-# CSRF Trusted Origins Configuration
-# Django 3.2 uses is_same_domain(), requiring domain patterns with leading dots (e.g. '.run.app')
-# We also include Django 4+ scheme-prefixed entries for forward compatibility
+    # CSRF Trusted Origins Configuration
 CSRF_TRUSTED_ORIGINS = [
-    # Django 3.2 domain patterns (wildcards must start with a leading dot)
-    '.run.app',
-    '.asia-east1.run.app',
-    '.google.com',
-    '.googleusercontent.com',
-    '.aistudio.google.com',
-    'localhost',
-    'localhost:3000',
-    '127.0.0.1',
-    '127.0.0.1:3000',
-    'localhost:8000',
-    '127.0.0.1:8000',
-    # Django 4+ scheme-prefixed formats
     'https://*.run.app',
     'https://*.asia-east1.run.app',
     'https://*.google.com',
     'https://*.googleusercontent.com',
     'https://*.aistudio.google.com',
+
     'http://localhost:3000',
-    'http://127.0.0.1:3000',
     'http://localhost:8000',
+    'http://127.0.0.1:3000',
     'http://127.0.0.1:8000',
 ]
 
-if ng_allowed:
-    if ng_allowed not in CSRF_TRUSTED_ORIGINS:
-        CSRF_TRUSTED_ORIGINS.append(ng_allowed)
-    dot_ng = '.' + ng_allowed.lstrip('*.')
-    if dot_ng not in CSRF_TRUSTED_ORIGINS:
-        CSRF_TRUSTED_ORIGINS.append(dot_ng)
-    https_ng = f'https://{ng_allowed}'
-    if https_ng not in CSRF_TRUSTED_ORIGINS:
-        CSRF_TRUSTED_ORIGINS.append(https_ng)
-
 csrf_trusted_env = os.environ.get('CSRF_TRUSTED_ORIGINS', '').strip()
+
 if csrf_trusted_env:
-    from urllib.parse import urlparse
     for origin in csrf_trusted_env.split(','):
         cleaned = origin.strip()
-        if not cleaned:
-            continue
-        if cleaned not in CSRF_TRUSTED_ORIGINS:
-            CSRF_TRUSTED_ORIGINS.append(cleaned)
-        # Also extract netloc for Django 3.2 domain check
-        if '://' in cleaned:
-            netloc = urlparse(cleaned).netloc
-            if netloc and netloc not in CSRF_TRUSTED_ORIGINS:
-                CSRF_TRUSTED_ORIGINS.append(netloc)
-            if netloc and not netloc.startswith('.'):
-                dot_net = '.' + netloc.lstrip('*.')
-                if dot_net not in CSRF_TRUSTED_ORIGINS:
-                    CSRF_TRUSTED_ORIGINS.append(dot_net)
-        else:
-            if not cleaned.startswith('.'):
-                dot_cleaned = '.' + cleaned.lstrip('*.')
-                if dot_cleaned not in CSRF_TRUSTED_ORIGINS:
-                    CSRF_TRUSTED_ORIGINS.append(dot_cleaned)
+
+        if cleaned and cleaned.startswith(('http://', 'https://')):
+            if cleaned not in CSRF_TRUSTED_ORIGINS:
+                CSRF_TRUSTED_ORIGINS.append(cleaned)
+
 
 # Frame options & cookie configuration
 # AI Studio renders the application inside a cross-site iframe.

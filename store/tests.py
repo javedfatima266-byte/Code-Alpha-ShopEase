@@ -105,7 +105,12 @@ class AuthenticationTests(ShopEaseTestCase):
             'confirm_password': 'Password123!',
         })
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, 'form', 'username', 'This username is already taken. Please choose another.')
+        self.assertFormError(
+    response.context['form'],
+    'username',
+    'This username is already taken. Please choose another.'
+)
+
 
     def test_user_registration_password_mismatch(self):
         response = self.client.post(reverse('register'), {
@@ -116,8 +121,11 @@ class AuthenticationTests(ShopEaseTestCase):
             'confirm_password': 'DifferentPassword!',
         })
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, 'form', 'confirm_password', 'Passwords do not match.')
-
+        self.assertFormError(
+    response.context['form'],
+    'confirm_password',
+    'Passwords do not match.'
+)
     def test_user_login_valid(self):
         response = self.client.post(reverse('login'), {
             'username': 'user1',
