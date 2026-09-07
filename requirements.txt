@@ -7,4 +7,4 @@ sqlparse>=0.4.2
 
 # Optional Production Dependencies (Only needed when connecting to PostgreSQL):
  dj-database-url>=2.1.0
-# psycopg2-binary>=2.9.0
+ psycopg2-binary>=2.9.0
