@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node dev-server.js",
-    "start": "node dev-server.js",
-   "build": "uv run python manage.py check && uv run python manage.py collectstatic --noinput",
-"test": "uv run python manage.py test",
-"lint": "uv run python manage.py check"
-  },
+  "dev": "node dev-server.js",
+  "start": "node dev-server.js",
+  "build": "python manage.py check && python manage.py collectstatic --noinput",
+  "test": "uv run python manage.py test",
+  "lint": "uv run python manage.py check"
+},
   "dependencies": {
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.1.14",
