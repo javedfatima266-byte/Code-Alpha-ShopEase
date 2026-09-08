@@ -32,16 +32,6 @@ A complete, production-grade e-commerce web application engineered with **Django
 
 ---
 
-## 🔑 Demo Accounts for Evaluation
-
-| Role | Username | Password | Notes |
-| :--- | :--- | :--- | :--- |
-| **Demo Customer** | `intern_demo` | `password123` | Pre-loaded with order history and profile details |
-| **Store Superuser** | `admin` | `admin123` | Full access to Django Administration panel (`/admin/`) |
-
-*Tip: The Sign In page features a 1-click **"Autofill Demo Credentials"** button for quick evaluator testing.*
-
----
 
 ## 🏗️ Architecture & Database Models
 

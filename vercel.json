@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "uv run python manage.py check && uv run python manage.py migrate --noinput && uv run python manage.py collectstatic --noinput",
+  "outputDirectory": "staticfiles",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
+  ]
+}

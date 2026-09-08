@@ -19,21 +19,6 @@
       <p>Log in to access your orders, saved cart, and profile</p>
     </div>
 
-    <!-- Quick Demo Credential Button for Evaluators -->
-    <div style="background-color: var(--primary-light); border: 1px solid var(--primary-border); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 1.5rem; text-align: center;">
-      <div style="font-size: 0.82rem; color: var(--slate-700); margin-bottom: 0.4rem;">
-        <strong>Internship Reviewer?</strong> Click below to fill demo user:
-      </div>
-      <button 
-        type="button" 
-        class="btn btn-primary btn-sm" 
-        style="width: 100%; font-size: 0.82rem;"
-        onclick="fillDemoCredentials()"
-      >
-        Autofill Demo Credentials (intern_demo)
-      </button>
-    </div>
-
     <form action="{% url 'login' %}" method="post" id="loginForm">
       {% csrf_token %}
 
@@ -72,14 +57,4 @@
   </div>
 </div>
 
-<script>
-  function fillDemoCredentials() {
-    const userField = document.getElementById('{{ form.username.id_for_label }}') || document.querySelector('input[name="username"]');
-    const passField = document.getElementById('{{ form.password.id_for_label }}') || document.querySelector('input[name="password"]');
-    if (userField && passField) {
-      userField.value = 'intern_demo';
-      passField.value = 'password123';
-    }
-  }
-</script>
 {% endblock %}
