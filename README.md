@@ -3,6 +3,10 @@
 A complete, production-grade e-commerce web application engineered with **Django 3.2 LTS**, **SQLite**, and modern **HTML5/CSS3/Vanilla JS** for an internship project demonstration.
 
 ---
+## 🚀 Live Demo
+
+👉[Try code-alpha-shop-ease ](https://code-alpha-shop-ease-pi.vercel.app/)
+
 
 ## 🌟 Core Features & Capabilities
 
@@ -74,3 +78,12 @@ python manage.py test
 * **Database**: SQLite3 (with PostgreSQL migration support via dj-database-url)
 * **Frontend**: Django Templates, Semantic HTML5, Responsive CSS3 Grid/Flexbox, Vanilla ES6 JavaScript
 * **Icons & Imagery**: Vector SVGs and Lucide icons
+
+---
+
+* ## 👩‍💻 Author
+
+**Fatima Javed**
+
+BS Computer Science Student
+Aspiring Full-Stack Developer
